@@ -89,6 +89,9 @@ func Get(w http.ResponseWriter, url, token string, rangeStr string, ifRange stri
 		fmt.Println(err)
 		return false
 	}
+	for k, v := range res.Header {
+		w.Header().Set(k, v[0])
+	}
 	io.Copy(w, res.Body)
 	res.Body.Close()
 	return true
